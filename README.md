@@ -1,6 +1,6 @@
 # README
 
-Java 11 base application.
+Proyecto videojuego 1º DAM programación
 
 ## BASE SETUP
 
