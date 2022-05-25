@@ -1,5 +1,6 @@
 package shooter2d;
 
+import java.awt.Component;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,21 +11,18 @@ import javax.swing.Timer;
 
 public class Bala extends JLabel implements ActionListener {
 
+    // VARIABLES
     Principal p;
     Personaje personaje;
     Zombie zombie;
+    Timer temporizadorDisparoBala;
 
     int x;
     int y;
-
     int cont;
 
-    Timer temporizadorDisparoBala;
     boolean flagDisparoBala;
-
     boolean flagLadoDisparo;
-
-    boolean flagImpactoZombie;
 
     // balaImagen
     ImageIcon imagenBala = new ImageIcon(Bala.class.getResource("/shooter2d/img/bala.png"));
@@ -32,6 +30,7 @@ public class Bala extends JLabel implements ActionListener {
     Image pasadoBala = conversionBala.getScaledInstance(14, 4, Image.SCALE_REPLICATE);
     ImageIcon iconoBala = new ImageIcon(pasadoBala);
 
+    // CONSTRUCTOR
     public Bala(Principal p) {
         this.p = p;
         this.setIcon(iconoBala);
@@ -41,23 +40,37 @@ public class Bala extends JLabel implements ActionListener {
         temporizadorDisparoBala.start();
 
         flagDisparoBala = false;
-
-        flagImpactoZombie = false;
-
-        // x = p.personaje.getX()+200;
-        // y = p.personaje.getY()+75;
         cont = 0;
     }
 
-    // public void crearBala() {
-    // p.bala = new Bala(p);
-    // p.bala.setSize(14, 4);
-    // p.bala.setLocation(300,300);
-    // p.add(p.bala,1);
-    // p.bala.setVisible(false);
-    // p.bala.setVisible(true);
-    // System.err.println("creo");
-    // }
+    // Función para eliminar zombies al impactarle la bala
+    public void matarZombies() {
+        for (Component component : p.getContentPane().getComponents()) {
+            if (component.getClass() == Zombie.class) {
+
+                if (((Zombie) component).getIcon() == ((Zombie) component).iconoZombieVuelta) {
+                    if (this.getX() >= component.getX() + 60 && component.getX() > p.personaje.getX()) {
+                        System.out.println("entro en este");
+                        ((Zombie) component).matarZombie(component);
+                        this.setVisible(false);
+
+                        p.remove(this);
+                        temporizadorDisparoBala.stop();
+                    }
+                }
+
+                if (((Zombie) component).getIcon() == ((Zombie) component).iconoZombie) {
+                    if (this.getX() <= component.getX() + 60 && component.getX() < p.personaje.getX()) {
+                        ((Zombie) component).matarZombie(component);
+                        this.setVisible(false);
+
+                        p.remove(this);
+                        temporizadorDisparoBala.stop();
+                    }
+                }
+            }
+        }
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -76,34 +89,28 @@ public class Bala extends JLabel implements ActionListener {
                     y = p.personaje.getY() + 75;
                     flagLadoDisparo = false;
                 }
-
             }
 
             this.setVisible(true);
 
             if (flagLadoDisparo) {
-                x += 10;
+                x += 19;
             } else {
-                x -= 10;
+                x -= 19;
             }
 
             this.setLocation(x, y);
             cont++;
 
-            // if (this.getLocation().x >= 1000) {
-            // p.remove(this);
-            // this.setVisible(false);
-            // temporizadorDisparoBala.stop();
-            // }    
+            matarZombies();
 
-            if (this.getX() >= p.zombie.getX() + 60 && p.zombie.getX() > p.personaje.getX()) {
+            // if (this.getX() >= p.zombie.getX() + 60 && p.zombie.getX() > p.personaje.getX()) {
 
-                p.zombie.matarZombie();
-                this.setVisible(false);
+            //     this.setVisible(false);
 
-                p.remove(this);
-                temporizadorDisparoBala.stop();
-            }
+            //     p.remove(this);
+            //     temporizadorDisparoBala.stop();
+            // }
         }
     }
 }

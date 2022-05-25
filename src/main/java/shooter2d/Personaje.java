@@ -37,6 +37,7 @@ public class Personaje extends JLabel implements ActionListener {
     Image pasadoPersonajeDisparo = conversionPersonajeDisparo.getScaledInstance(210, 240, Image.SCALE_REPLICATE);
     ImageIcon iconoPersonajeDisparo = new ImageIcon(pasadoPersonajeDisparo);
 
+    
     Timer moverDerecha;
     Timer moverIzquierda;
 
@@ -63,43 +64,33 @@ public class Personaje extends JLabel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == moverDerecha && flagDerecha) {
+            x = this.getX();
+            y = this.getY();
+
             if (flagDisparo) {
                 this.setIcon(iconoPersonajeDisparo);
-                x = this.getX();
-                y = this.getY();
-
                 x += 10;
-
-                this.setLocation(x, y);
             } else {
                 this.setIcon(iconoPersonaje);
-                x = this.getX();
-                y = this.getY();
-
                 x += 10;
-
-                this.setLocation(x, y);
             }
+
+            this.setLocation(x, y);
         }
+
         if (e.getSource() == moverIzquierda && flagIzquierda) {
+            x = this.getX();
+            y = this.getY();
+
             if (flagDisparo) {
                 this.setIcon(iconoPersonajeDisparoVuelta);
-                x = this.getX();
-                y = this.getY();
-
                 x -= 10;
-
-                setLocation(x, y);
             } else {
-
                 this.setIcon(iconoPersonajeVuelta);
-                x = this.getX();
-                y = this.getY();
-                
                 x -= 10;
-                
-                setLocation(x, y);
             }
+
+            setLocation(x, y);
         }
     }
 }

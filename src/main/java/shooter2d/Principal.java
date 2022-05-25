@@ -1,6 +1,8 @@
 package shooter2d;
 
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -10,8 +12,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.Timer;
 
-public class Principal extends JFrame {
+public class Principal extends JFrame implements ActionListener {
     JLabel lblFondo;
     Personaje personaje;
     Zombie zombie;
@@ -19,6 +22,13 @@ public class Principal extends JFrame {
     JButton botonPrueba;
     CrearBala crearbala;
     JLabel lblSangre;
+
+    // Boolean flagSentidoZombie;
+
+    Timer temporizadorAparecerZombie;
+
+    int localizacionZombie;
+    int cantidadZombies;
 
     public Principal() {
         super("Shooter 2D");
@@ -38,17 +48,6 @@ public class Principal extends JFrame {
         Image pasadoFondo = conversionFondo.getScaledInstance(1920, 1080, Image.SCALE_REPLICATE);
         ImageIcon iconoFondo = new ImageIcon(pasadoFondo);
 
-        //lblSangre
-        lblSangre = new JLabel();
-        lblSangre.setSize(100,100);
-        add(lblSangre);
-
-        // Zombie
-        zombie = new Zombie(this);
-        zombie.setSize(130, 210);
-        zombie.setLocation((int)(Math.random()*1800), 670);
-        add(zombie);
-
         // Personaje
         personaje = new Personaje(this);
         personaje.setSize(210, 240);
@@ -56,13 +55,6 @@ public class Principal extends JFrame {
         System.err.println("Fondo: " + personaje.getComponentCount());
         // personaje.setIcon(personaje.iconoPersonaje);
         add(personaje);
-
-        // Bala
-        // bala = new Bala(this);
-        // bala.setSize(14, 4);
-        // bala.setLocation(personaje.getX() + 200, personaje.getY() + 75);
-        // // bala.setLocation(1400,400);
-        // add(bala);
 
         // lblFondo
         lblFondo = new JLabel();
@@ -77,8 +69,14 @@ public class Principal extends JFrame {
 
         crearbala = new CrearBala(this);
         add(crearbala);
+
+        temporizadorAparecerZombie = new Timer(1500, this);
+        temporizadorAparecerZombie.start();
     }
 
+    // ===================================================================
+    // INNER CLASS MANEJADOR DE EVENTOS DE TECLADO
+    // ===================================================================
     private class ManejadorTeclado extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
@@ -102,25 +100,10 @@ public class Principal extends JFrame {
         }
     }
 
+    // ===================================================================
+    // INNER CLASS MANEJADOR DE EVENTOS DE RATON
+    // ===================================================================
     private class ManejadorRaton extends MouseAdapter {
-        // @Override
-        // public void mousePressed(MouseEvent e) {
-        // if (e.getButton() == 1) {
-
-        // bala.crearBala();
-
-        // personaje.flagDisparo = true;
-        // bala.flagDisparoBala = true;
-        // if (personaje.getIcon() == personaje.iconoPersonaje) {
-        // personaje.setIcon(personaje.iconoPersonajeDisparo);
-        // }
-
-        // if (personaje.getIcon() == personaje.iconoPersonajeVuelta) {
-        // personaje.setIcon(personaje.iconoPersonajeDisparoVuelta);
-        // }
-        // }
-        // }
-
         @Override
         public void mousePressed(MouseEvent e) {
             if (personaje.getIcon() == personaje.iconoPersonaje) {
@@ -131,42 +114,6 @@ public class Principal extends JFrame {
                 personaje.setIcon(personaje.iconoPersonajeDisparoVuelta);
             }
             crearbala.crearBala();
-        }
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (e.getButton() == 1) {
-                // System.err.println("entro");
-                // botonPrueba = new JButton("Prueba");
-                // botonPrueba.setSize(300,300);
-                // botonPrueba.setLocation((int)(Math.random()*500),(int)(Math.random()*500));
-                // // Principal.this.remove(lblFondo);
-                // Principal.this.add(botonPrueba,1);
-                // botonPrueba.setVisible(false);
-                // botonPrueba.setVisible(true);
-                // Principal.this.add(lblFondo);
-
-                // bala.crearBala();
-
-                // bala = new Bala(Principal.this);
-                // bala.setSize(14,4);
-                // bala.setLocation((int)(Math.random()*400), (int)(Math.random()*500));
-                // Principal.this.add(bala,1);
-                // bala.setVisible(false);
-                // bala.setVisible(true);
-
-                // if (personaje.getIcon() == personaje.iconoPersonaje) {
-                // personaje.setIcon(personaje.iconoPersonajeDisparo);
-                // }
-
-                // if (personaje.getIcon() == personaje.iconoPersonajeVuelta) {
-                // personaje.setIcon(personaje.iconoPersonajeDisparoVuelta);
-                // }
-                // crearbala.crearBala();
-
-                // bala.crearBala();
-
-            }
         }
 
         @Override
@@ -181,6 +128,27 @@ public class Principal extends JFrame {
                     personaje.setIcon(personaje.iconoPersonajeVuelta);
                 }
             }
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == temporizadorAparecerZombie) {
+
+            localizacionZombie = (int) (Math.random() * 2);
+
+            zombie = new Zombie(Principal.this);
+            zombie.setSize(130, 210);
+            if (localizacionZombie == 1) {
+                zombie.setLocation(-100, 670);
+                zombie.setIcon(zombie.iconoZombie);
+                // flagSentidoZombie = false;
+            } else if (localizacionZombie == 0) {
+                zombie.setLocation(1900, 670);
+                zombie.setIcon(zombie.iconoZombieVuelta);
+                // flagSentidoZombie = true;
+            }
+            Principal.this.add(zombie, 1);
         }
     }
 }

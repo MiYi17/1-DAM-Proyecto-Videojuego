@@ -9,13 +9,13 @@ public class Application {
 
     frame.setLocationRelativeTo(null);
 
-    // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    // frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-    // frame.setUndecorated(true);
-    // frame.setVisible(true);
-
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    frame.setUndecorated(true);
     frame.setVisible(true);
-    frame.setSize(900,900);
+
+    // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    // frame.setVisible(true);
+    // frame.setSize(900,900);
   }
 }

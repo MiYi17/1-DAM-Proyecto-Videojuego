@@ -1,17 +1,24 @@
 package shooter2d;
 
+import java.awt.Component;
 import java.awt.Image;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.Timer;
 
 
-public class Zombie extends JLabel {
+public class Zombie extends JLabel implements ActionListener{
     Principal p;
     Bala bala;
-    // Timer temporizadorSangre;
-    // Boolean flagSangre;
+    Personaje personaje;
+
+    int x;
+    int y;
+
+    Timer temporizadorAndarZombie;
 
     //zombieImagen
     ImageIcon imagenZombie = new ImageIcon(Zombie.class.getResource("/shooter2d/img/zombie.png"));
@@ -27,23 +34,39 @@ public class Zombie extends JLabel {
 
     public Zombie(Principal p){
         this.p = p;
-        this.setIcon(iconoZombieVuelta);
+      
+        this.setIcon(iconoZombie);
 
-        // flagSangre = false;
-        // temporizadorSangre = new Timer(50, this);
+        temporizadorAndarZombie = new Timer(20, this);
+        temporizadorAndarZombie.start();
     }
 
-    public void matarZombie(){
-        this.setVisible(true);
-        this.setVisible(false);
-        // flagSangre = true;
-        p.remove(this);
+    public void matarZombie(Component z){
+        z.setVisible(true);
+        z.setVisible(false);
+        p.remove(z);
+        temporizadorAndarZombie.stop();
     }
 
-    // @Override
-    // public void actionPerformed(ActionEvent e) {
-    //     if (e.getSource() == temporizadorSangre && flagSangre) {
-            
-    //     }
-    // }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == temporizadorAndarZombie) {
+            x = this.getX();
+            y = this.getY();
+            if (this.getIcon() == iconoZombieVuelta) {
+                if (this.getX() <= p.personaje.getX() + 110) {
+                    temporizadorAndarZombie.stop();
+                } else {
+                    x -= 4;
+                }
+            } else {
+                if (this.getX() >= p.personaje.getX() - 60) {
+                    temporizadorAndarZombie.stop();
+                } else {
+                    x += 4;
+                }
+            }
+            this.setLocation(x,y);
+        }
+    }
 }
