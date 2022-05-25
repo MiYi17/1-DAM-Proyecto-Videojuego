@@ -12,9 +12,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Principal extends JFrame implements ActionListener {
+public class Principal extends JPanel implements ActionListener {
     JLabel lblFondo;
     Personaje personaje;
     Zombie zombie;
@@ -31,7 +32,6 @@ public class Principal extends JFrame implements ActionListener {
     int cantidadZombies;
 
     public Principal() {
-        super("Shooter 2D");
         setLayout(null);
 
         // imagenesSangre
@@ -52,7 +52,7 @@ public class Principal extends JFrame implements ActionListener {
         personaje = new Personaje(this);
         personaje.setSize(210, 240);
         personaje.setLocation(300, 650);
-        System.err.println("Fondo: " + personaje.getComponentCount());
+        // System.err.println("Fondo: " + personaje.getComponentCount());
         // personaje.setIcon(personaje.iconoPersonaje);
         add(personaje);
 
@@ -61,7 +61,7 @@ public class Principal extends JFrame implements ActionListener {
         lblFondo.setSize(1920, 1080);
         lblFondo.setLocation(0, 0);
         lblFondo.setIcon(iconoFondo);
-        System.err.println("Fondo: " + lblFondo.getComponentCount());
+        // System.err.println("Fondo: " + lblFondo.getComponentCount());
         add(lblFondo);
 
         addKeyListener(new ManejadorTeclado());

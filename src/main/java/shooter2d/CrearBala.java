@@ -18,7 +18,7 @@ public class CrearBala extends JLabel{
         p.add(bala,1);
         bala.setVisible(false);
         bala.setVisible(true);
-        System.err.println("creo");
+        // System.err.println("creo");
         bala.flagDisparoBala = true;
         p.personaje.flagDisparo = true;
     }

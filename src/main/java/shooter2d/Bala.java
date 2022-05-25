@@ -36,7 +36,7 @@ public class Bala extends JLabel implements ActionListener {
         this.setIcon(iconoBala);
         this.setVisible(false);
 
-        temporizadorDisparoBala = new Timer(10, this);
+        temporizadorDisparoBala = new Timer(30, this);
         temporizadorDisparoBala.start();
 
         flagDisparoBala = false;
@@ -45,12 +45,12 @@ public class Bala extends JLabel implements ActionListener {
 
     // Función para eliminar zombies al impactarle la bala
     public void matarZombies() {
-        for (Component component : p.getContentPane().getComponents()) {
+        for (Component component : p.getComponents()) {
             if (component.getClass() == Zombie.class) {
 
                 if (((Zombie) component).getIcon() == ((Zombie) component).iconoZombieVuelta) {
                     if (this.getX() >= component.getX() + 60 && component.getX() > p.personaje.getX()) {
-                        System.out.println("entro en este");
+                        // System.out.println("entro en este");
                         ((Zombie) component).matarZombie(component);
                         this.setVisible(false);
 
@@ -94,9 +94,9 @@ public class Bala extends JLabel implements ActionListener {
             this.setVisible(true);
 
             if (flagLadoDisparo) {
-                x += 19;
+                x += 45;
             } else {
-                x -= 19;
+                x -= 45;
             }
 
             this.setLocation(x, y);
@@ -104,13 +104,11 @@ public class Bala extends JLabel implements ActionListener {
 
             matarZombies();
 
-            // if (this.getX() >= p.zombie.getX() + 60 && p.zombie.getX() > p.personaje.getX()) {
-
-            //     this.setVisible(false);
-
-            //     p.remove(this);
-            //     temporizadorDisparoBala.stop();
-            // }
+            if (this.getX() > 1920 || this.getX() < 0) {
+                p.remove(this);
+                this.setVisible(false);
+                temporizadorDisparoBala.stop();
+            }
         }
     }
 }

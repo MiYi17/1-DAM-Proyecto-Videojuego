@@ -55,9 +55,9 @@ public class Personaje extends JLabel implements ActionListener {
         flagDerecha = false;
         flagIzquierda = false;
 
-        moverDerecha = new Timer(16, this);
+        moverDerecha = new Timer(5, this);
         moverDerecha.start();
-        moverIzquierda = new Timer(16, this);
+        moverIzquierda = new Timer(5, this);
         moverIzquierda.start();
     }
 
@@ -69,10 +69,10 @@ public class Personaje extends JLabel implements ActionListener {
 
             if (flagDisparo) {
                 this.setIcon(iconoPersonajeDisparo);
-                x += 10;
+                x += 5;
             } else {
                 this.setIcon(iconoPersonaje);
-                x += 10;
+                x += 5;
             }
 
             this.setLocation(x, y);
@@ -84,10 +84,10 @@ public class Personaje extends JLabel implements ActionListener {
 
             if (flagDisparo) {
                 this.setIcon(iconoPersonajeDisparoVuelta);
-                x -= 10;
+                x -= 5;
             } else {
                 this.setIcon(iconoPersonajeVuelta);
-                x -= 10;
+                x -= 5;
             }
 
             setLocation(x, y);
