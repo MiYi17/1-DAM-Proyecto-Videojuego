@@ -24,6 +24,8 @@ public class Principal extends JPanel implements ActionListener {
     CrearBala crearbala;
     JLabel lblSangre;
 
+    Frame a;
+
     // Boolean flagSentidoZombie;
 
     Timer temporizadorAparecerZombie;
@@ -31,8 +33,9 @@ public class Principal extends JPanel implements ActionListener {
     int localizacionZombie;
     int cantidadZombies;
 
-    public Principal() {
+    public Principal(Frame a) {
         setLayout(null);
+        this.a = a;
 
         // imagenesSangre
         for (int i = 1; i <= 10; i++) {
@@ -64,8 +67,8 @@ public class Principal extends JPanel implements ActionListener {
         // System.err.println("Fondo: " + lblFondo.getComponentCount());
         add(lblFondo);
 
-        addKeyListener(new ManejadorTeclado());
-        addMouseListener(new ManejadorRaton());
+        a.addKeyListener(new ManejadorTeclado());
+        a.addMouseListener(new ManejadorRaton());
 
         crearbala = new CrearBala(this);
         add(crearbala);
