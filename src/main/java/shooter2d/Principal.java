@@ -33,7 +33,19 @@ public class Principal extends JPanel implements ActionListener {
     int localizacionZombie;
     int cantidadZombies;
 
-    public Principal(Frame a) {
+    boolean flagFacil;
+    boolean flagNormal;
+    boolean flagDificil;
+
+    boolean flagVelocidadFacil;
+    boolean flagVelocidadNormal;
+    boolean flagVelocidadDificil;
+
+    boolean flagDisparosFacil;
+    boolean flagDisparosNormal;
+    boolean flagDisparosDificil;
+
+    public Principal(Frame a, int prueba) {
         setLayout(null);
         this.a = a;
 
@@ -67,14 +79,36 @@ public class Principal extends JPanel implements ActionListener {
         // System.err.println("Fondo: " + lblFondo.getComponentCount());
         add(lblFondo);
 
-        a.addKeyListener(new ManejadorTeclado());
-        a.addMouseListener(new ManejadorRaton());
+        addKeyListener(new ManejadorTeclado());
+        addMouseListener(new ManejadorRaton());
 
         crearbala = new CrearBala(this);
         add(crearbala);
 
-        temporizadorAparecerZombie = new Timer(1500, this);
-        temporizadorAparecerZombie.start();
+        if (prueba == 0) {
+            temporizadorAparecerZombie = new Timer(2000, this);
+            temporizadorAparecerZombie.start();
+            flagVelocidadFacil = true;
+            flagDisparosFacil = true;
+        }
+
+        if (prueba == 1) {
+            temporizadorAparecerZombie = new Timer(1300, this);
+            temporizadorAparecerZombie.start();
+            flagVelocidadNormal = true;
+            flagDisparosNormal = true;
+
+        }
+
+        if (prueba == 2) {
+            temporizadorAparecerZombie = new Timer(800, this);
+            temporizadorAparecerZombie.start();
+            flagVelocidadDificil = true;
+            flagDisparosDificil = true;
+
+        }
+
+        this.setFocusable(true);
     }
 
     // ===================================================================

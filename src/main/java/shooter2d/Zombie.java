@@ -53,17 +53,34 @@ public class Zombie extends JLabel implements ActionListener{
         if (e.getSource() == temporizadorAndarZombie) {
             x = this.getX();
             y = this.getY();
+
             if (this.getIcon() == iconoZombieVuelta) {
                 if (this.getX() <= p.personaje.getX() + 110) {
                     temporizadorAndarZombie.stop();
                 } else {
-                    x -= 1;
+                    if (p.flagVelocidadFacil) {
+                        x -= 1;
+                    }
+                    if (p.flagVelocidadNormal) {
+                        x -= 2;
+                    }
+                    if (p.flagVelocidadDificil) {
+                        x -= 3;
+                    }
                 }
             } else {
                 if (this.getX() >= p.personaje.getX() - 60) {
                     temporizadorAndarZombie.stop();
                 } else {
-                    x += 1;
+                    if (p.flagVelocidadFacil) {
+                        x += 1;
+                    }
+                    if (p.flagVelocidadNormal) {
+                        x += 2;
+                    }
+                    if (p.flagVelocidadDificil) {
+                        x += 3;
+                    }
                 }
             }
             this.setLocation(x,y);

@@ -8,7 +8,7 @@ public class Frame extends JFrame{
     public Frame(){
         // p = new Principal(this);
         // p.setSize(1920,1080);
-        // p.setVisible(true);
+        // p.setVisible(false);
         // add(p);
 
         m = new Menu(this);

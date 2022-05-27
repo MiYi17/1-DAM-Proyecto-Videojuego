@@ -49,13 +49,16 @@ public class Bala extends JLabel implements ActionListener {
             if (component.getClass() == Zombie.class) {
 
                 if (((Zombie) component).getIcon() == ((Zombie) component).iconoZombieVuelta) {
-                    if (this.getX() >= component.getX() + 60 && component.getX() > p.personaje.getX()) {
-                        // System.out.println("entro en este");
-                        ((Zombie) component).matarZombie(component);
-                        this.setVisible(false);
-
-                        p.remove(this);
-                        temporizadorDisparoBala.stop();
+                    if (p.flagDisparosFacil) {
+                        
+                        if (this.getX() >= component.getX() + 60 && component.getX() > p.personaje.getX()) {
+                            // System.out.println("entro en este");
+                            ((Zombie) component).matarZombie(component);
+                            this.setVisible(false);
+                            
+                            p.remove(this);
+                            temporizadorDisparoBala.stop();
+                        }
                     }
                 }
 
