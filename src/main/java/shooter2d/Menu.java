@@ -196,8 +196,7 @@ public class Menu extends JPanel implements ActionListener {
             p.setVisible(false);
             a.add(p);
             p.setVisible(true);
-            this.setVisible(false);
-            
+            this.setVisible(false);   
         }
         
         if (e.getSource() == btnNormal) {

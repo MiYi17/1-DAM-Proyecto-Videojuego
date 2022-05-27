@@ -49,14 +49,20 @@ public class Bala extends JLabel implements ActionListener {
             if (component.getClass() == Zombie.class) {
 
                 if (((Zombie) component).getIcon() == ((Zombie) component).iconoZombieVuelta) {
-                    if (p.flagDisparosFacil) {
-                        
-                        if (this.getX() >= component.getX() + 60 && component.getX() > p.personaje.getX()) {
-                            // System.out.println("entro en este");
+
+                    if (this.getX() >= component.getX() + 60 && component.getX() > p.personaje.getX()) {
+
+                        temporizadorDisparoBala.stop();
+                        p.remove(this);
+                        this.setVisible(false);
+
+                        ((Zombie) component).contBalasDadas++;
+
+                        if ((p.flagDisparosFacil && ((Zombie) component).contBalasDadas == 1) || (p.flagDisparosNormal && ((Zombie) component).contBalasDadas == 2) || (p.flagDisparosDificil && ((Zombie) component).contBalasDadas == 3)){
                             ((Zombie) component).matarZombie(component);
-                            this.setVisible(false);
-                            
                             p.remove(this);
+                            this.setVisible(false);
+
                             temporizadorDisparoBala.stop();
                         }
                     }
@@ -64,11 +70,20 @@ public class Bala extends JLabel implements ActionListener {
 
                 if (((Zombie) component).getIcon() == ((Zombie) component).iconoZombie) {
                     if (this.getX() <= component.getX() + 60 && component.getX() < p.personaje.getX()) {
-                        ((Zombie) component).matarZombie(component);
+
+                        temporizadorDisparoBala.stop();
+                        p.remove(this);
                         this.setVisible(false);
 
-                        p.remove(this);
-                        temporizadorDisparoBala.stop();
+                        ((Zombie) component).contBalasDadas++;
+
+                        if ((p.flagDisparosFacil && ((Zombie) component).contBalasDadas == 1) || (p.flagDisparosNormal && ((Zombie) component).contBalasDadas == 2) || (p.flagDisparosDificil && ((Zombie) component).contBalasDadas == 3)){
+                            ((Zombie) component).matarZombie(component);
+                            p.remove(this);
+                            this.setVisible(false);
+
+                            temporizadorDisparoBala.stop();
+                        }
                     }
                 }
             }

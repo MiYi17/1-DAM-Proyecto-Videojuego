@@ -18,6 +18,8 @@ public class Zombie extends JLabel implements ActionListener{
     int x;
     int y;
 
+    int contBalasDadas;
+
     Timer temporizadorAndarZombie;
 
     //zombieImagen

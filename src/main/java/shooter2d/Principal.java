@@ -10,7 +10,6 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -25,6 +24,9 @@ public class Principal extends JPanel implements ActionListener {
     JLabel lblSangre;
 
     Frame a;
+
+    MenuEscape mE;
+    Menu m;
 
     // Boolean flagSentidoZombie;
 
@@ -79,8 +81,8 @@ public class Principal extends JPanel implements ActionListener {
         // System.err.println("Fondo: " + lblFondo.getComponentCount());
         add(lblFondo);
 
-        addKeyListener(new ManejadorTeclado());
-        addMouseListener(new ManejadorRaton());
+        this.addKeyListener(new ManejadorTeclado());
+        this.addMouseListener(new ManejadorRaton());
 
         crearbala = new CrearBala(this);
         add(crearbala);
@@ -122,6 +124,17 @@ public class Principal extends JPanel implements ActionListener {
             }
             if (e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_A && personaje.flagDisparo) {
                 personaje.flagIzquierda = true;
+            }
+
+            if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                mE = new MenuEscape(Principal.this);
+                mE.setSize(1920, 1080);
+                mE.setVisible(false);
+                a.add(mE);
+                mE.setVisible(true);
+                Principal.this.setVisible(false);
+
+                Principal.this.temporizadorAparecerZombie.stop();                
             }
         }
 
