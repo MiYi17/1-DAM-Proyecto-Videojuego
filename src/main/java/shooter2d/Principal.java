@@ -113,6 +113,10 @@ public class Principal extends JPanel implements ActionListener {
         this.setFocusable(true);
     }
 
+    public void perder(){
+      
+    }
+
     // ===================================================================
     // INNER CLASS MANEJADOR DE EVENTOS DE TECLADO
     // ===================================================================

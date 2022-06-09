@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -84,10 +85,34 @@ public class MenuEscape extends JPanel implements ActionListener{
             p.temporizadorAparecerZombie.start();
             p.setFocusable(true);
         }
+
+        if (e.getSource() == btnExit) {
+            System.exit(1);
+        }
     }
 
     private class ManejadorRaton extends MouseAdapter{
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            if (e.getSource() == btnResumir) {
+                btnResumir.setIcon(imgPreResumirPulsado);
+            }
 
+            if (e.getSource() == btnExit) {
+                btnExit.setIcon(imgPreExitPulsado);
+            }
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            if (e.getSource() == btnResumir) {
+                btnResumir.setIcon(imgPreResumir);
+            }
+            
+            if (e.getSource() == btnExit) {
+                btnExit.setIcon(imgPreExit);
+            }
+        }
     }
 
     private class ManejadorTeclado extends KeyAdapter{
